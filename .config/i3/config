@@ -94,7 +94,7 @@ bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_
 # split orientation
 bindsym $mod+h split h;exec notify-send 'tile horizontally'
 bindsym $mod+v split v;exec notify-send 'tile vertically'
-bindsym $mod+q split toggle
+bindsym $mod+q split toggle;exec notify-send 'Toggle Split'
 
 # toggle fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -102,7 +102,7 @@ bindsym $mod+f fullscreen toggle
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stackingb
 bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+#bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -416,23 +416,32 @@ exec --no-startup-id flashfocus
 exec --no-startup-id synclient HorizEdgeScroll=1 VertEdgeScroll=1 VertScrollDelta=-111
 exec_always killall clipit; clipit &
 
+# Nautilus shortcut
+bindsym $mod+e exec nautilus
+
 # rofi
 bindsym $mod+space exec rofi -show drun
 
 # flash current window
 bindsym exec --no-startup-id flash_window
 
+#notifications
+exec --no-startup-id dunst
 
 # FN keys
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%; exec notify-send "Volume $(amixer get Master | grep '%' | head -n 1 | cut -d '[' -f 2 | cut -d '%' -f 1)%" #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%; exec notify-send "Volume $(amixer get Master | grep '%' | head -n 1 | cut -d '[' -f 2 | cut -d '%' -f 1)%" #decrease sound volume
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
 
-# Sreen brightness controls
-bindsym XF86MonBrightnessUp exec light -A 10;exec notify-send 'brightness up 10' # increase screen brightness
-bindsym XF86MonBrightnessDown exec light -U 10;exec notify-send 'brightness down 10' # decrease screen brightness
+# Screen brightness controls
+bindsym XF86MonBrightnessUp exec light -A 10; exec notify-send "Brightness $(light -G | bc | sed 's/\.00$//')%" # increase screen brightness
+bindsym XF86MonBrightnessDown exec light -U 10; exec notify-send "Brightness $(light -G | bc | sed 's/\.00$//')%" # decrease screen brightness
 
+# Media player controls
+bindsym XF86AudioPlay exec playerctl play-pause; exec notify-send 'Toggle Play/Pause'
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
 
 
 
