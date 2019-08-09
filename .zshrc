@@ -105,3 +105,4 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias subl='subl3'
+alias mouse='python /home/daan/Documents/Python/mouse.py'

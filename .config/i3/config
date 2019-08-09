@@ -53,7 +53,7 @@ bindsym $mod+Shift+F3 exec gksu pcmanfm
 bindsym $mod+F5 exec terminal -e 'mocp'
 bindsym $mod+t exec --no-startup-id pkill compton
 bindsym $mod+Ctrl+t exec --no-startup-id compton -b
-bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
+bindsym $mod+Shift+d --release exec "killall dunst; exec dunstify 'restart dunst'"
 bindsym Print exec --no-startup-id i3-scrot
 bindsym $mod+Print --release exec --no-startup-id i3-scrot -w
 bindsym $mod+Shift+Print --release exec --no-startup-id i3-scrot -s
@@ -92,9 +92,9 @@ bindsym $mod+b workspace back_and_forth
 bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
 
 # split orientation
-bindsym $mod+h split h;exec notify-send 'tile horizontally'
-bindsym $mod+v split v;exec notify-send 'tile vertically'
-bindsym $mod+q split toggle;exec notify-send 'Toggle Split'
+bindsym $mod+h split h;exec dunstify 'tile horizontally'
+bindsym $mod+v split v;exec dunstify 'tile vertically'
+bindsym $mod+q split toggle;exec dunstify 'Toggle Split'
 
 # toggle fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -305,38 +305,6 @@ set_from_resource $term_color13    color13
 set_from_resource $term_color14    color14
 set_from_resource $term_color15    color15
 
-# Start i3bar to display a workspace bar (plus the system information i3status if available)
-bar {
-	i3bar_command i3bar
-	status_command i3status
-	position bottom
-
-## please set your primary output first. Example: 'xrandr --output eDP1 --primary'
-#	tray_output primary
-#	tray_output eDP1
-
-	bindsym button4 nop
-	bindsym button5 nop
-#   font xft:URWGothic-Book 11
-	strip_workspace_numbers yes
-
-    colors {
-        background #222D31
-        statusline #F9FAF9
-        separator  #454947
-
-#                      border  backgr. text
-        focused_workspace  #F9FAF9 #16a085 #292F34
-        active_workspace   #595B5B #353836 #FDF6E3
-        inactive_workspace #595B5B #222D31 #EEE8D5
-        binding_mode       #16a085 #2C2C2C #F9FAF9
-        urgent_workspace   #16a085 #FDF6E3 #E5201D
-    }
-}
-
-# hide/unhide i3status bar
-#bindsym $mod+m bar mode toggle
-
 # Theme colors
 # class                   border  backgr. text    indic.   child_border
   client.focused          #556064 #556064 #80FFF9 #FDF6E3
@@ -406,7 +374,7 @@ mode "$mode_gaps_outer" {
 
 #********************************************************************************
 
-#Mijn edits
+#                               Mijn edits
 
 #********************************************************************************
 
@@ -414,7 +382,8 @@ exec_always feh --bg-scale /home/daan/Pictures/wallpaper.jpg
 exec_always --no-startup-id compton &
 exec --no-startup-id flashfocus
 exec --no-startup-id synclient HorizEdgeScroll=1 VertEdgeScroll=1 VertScrollDelta=-111
-exec_always killall clipit; clipit &
+exec_always killall clipit; clipit -n &
+exec_always ~/.config/polybar/launch.sh
 
 # Nautilus shortcut
 bindsym $mod+e exec nautilus
@@ -430,16 +399,25 @@ exec --no-startup-id dunst
 
 # FN keys
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%; exec notify-send "Volume $(amixer get Master | grep '%' | head -n 1 | cut -d '[' -f 2 | cut -d '%' -f 1)%" #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%; exec notify-send "Volume $(amixer get Master | grep '%' | head -n 1 | cut -d '[' -f 2 | cut -d '%' -f 1)%" #decrease sound volume
+#bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%; exec dunstify "Volume $(amixer get Master | grep '%' | head -n 1 | cut -d '[' -f 2 | cut -d '%' -f 1)%" #increase sound volume
+#bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%; exec dunstify "Volume $(amixer get Master | grep '%' | head -n 1 | cut -d '[' -f 2 | cut -d '%' -f 1)%" #decrease sound volume
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
 
+#without notification
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%;
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%;
+
 # Screen brightness controls
-bindsym XF86MonBrightnessUp exec light -A 10; exec notify-send "Brightness $(light -G | bc | sed 's/\.00$//')%" # increase screen brightness
-bindsym XF86MonBrightnessDown exec light -U 10; exec notify-send "Brightness $(light -G | bc | sed 's/\.00$//')%" # decrease screen brightness
+#bindsym XF86MonBrightnessUp exec light -A 10; exec dunstify "Brightness $(light -G | bc | sed 's/\.00$//')%" # increase screen brightness
+#bindsym XF86MonBrightnessDown exec light -U 10; exec dunstify "Brightness $(light -G | bc | sed 's/\.00$//')%" # decrease screen brightness
+
+# without notification
+bindsym XF86MonBrightnessUp exec light -A 10 # increase screen brightness
+bindsym XF86MonBrightnessDown exec light -U 10 # decrease screen brightness
+
 
 # Media player controls
-bindsym XF86AudioPlay exec playerctl play-pause; exec notify-send 'Toggle Play/Pause'
+bindsym XF86AudioPlay exec playerctl play-pause; exec dunstify 'Toggle Play/Pause'
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
