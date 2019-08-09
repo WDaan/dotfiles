@@ -4,7 +4,7 @@
 https://github.com/WillPower3309/dotfiles
 
 
-####polybar from : 
+#### polybar from : 
 https://github.com/deionizedoatmeal/popdots
 
 #### kitty from:
