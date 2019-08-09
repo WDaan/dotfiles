@@ -1,10 +1,14 @@
 ## Dotfiles
 
-#### zsh, rofi, compton, spicetify from: 
+<p align="center">
+    <a href="https://imgur.com/YnHNqfz.png"><img src="https://imgur.com/YnHNqfz.png" title="Desktop" alt="Desktop Screenshot" ></a>
+</p>
+ 
+ #### zsh, rofi, compton, spicetify from: 
 https://github.com/WillPower3309/dotfiles
 
 
-#### polybar from : 
+####polybar from : 
 https://github.com/deionizedoatmeal/popdots
 
 #### kitty from:
