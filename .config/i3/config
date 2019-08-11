@@ -100,9 +100,9 @@ bindsym $mod+q split toggle;exec dunstify 'Toggle Split'
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stackingb
-bindsym $mod+w layout tabbed
-#bindsym $mod+e layout toggle split
+#bindsym $mod+s layout stackingb
+#bindsym $mod+w layout tabbed
+#bindsym $mod+Shift+s layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -404,8 +404,8 @@ exec --no-startup-id dunst
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
 
 #without notification
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%;
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%;
+bindsym XF86AudioRaiseVolume exec amixer -D pulse sset Master 5%+;
+bindsym XF86AudioLowerVolume exec amixer -D pulse sset Master 5%-;
 
 # Screen brightness controls
 #bindsym XF86MonBrightnessUp exec light -A 10; exec dunstify "Brightness $(light -G | bc | sed 's/\.00$//')%" # increase screen brightness

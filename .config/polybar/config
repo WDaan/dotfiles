@@ -10,10 +10,11 @@ alert = #4DB6AC
 width = 1920
 height = 28
 offset-x = 0
-offset-y = 30
+offset-y = 0
 bottom = false
 fixed-center = true
 line-size = 1
+monitor = eDP1
 
 # Don't set wm-restack and don't override-redirect
 #wm-restack =
@@ -29,7 +30,7 @@ font-2 = UbuntuMono Nerd Font:size=20;4
 
 modules-left = i3
 modules-center = date
-modules-right = pulseaudio backlight cpu memory wireless-network battery 
+modules-right = pulseaudio backlight cpu memory storage  wireless-network battery 
 
 tray-position = right
 tray-padding = 2
@@ -40,15 +41,23 @@ module-margin = 0
 
 cursor-click = pointer
 cursor-scroll = ns-resize
+
+[bar/secondary]
+inherit = bar/main
+monitor = DP1
+
+width = 3840
+height = 38
+
+font-0 = Comfortaa:pixelsize=14;3
+font-1 = UbuntuMono Nerd Font:size=16;3
+font-2 = UbuntuMono Nerd Font:size=25;6
+
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; #### MODULES ####
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-[module/windowtitle]
-type = internal/xwindow
-format = <label>
-label = %title%
-format-foreground = #f5f5f5
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 [module/temperature]
 type = internal/temperature
 format = <label>
@@ -96,29 +105,29 @@ format-discharging = " <label-discharging>"
 label-discharging = "%percentage%%"
 
 format-charging-background = ${colors.background}
-format-charging-foreground = ${colors.foreground}
+format-charging-foreground = ${colors.primary}
 format-charging-prefix = %{T3}%{T-}
 format-charging-prefix-foreground = ${colors.background}
-format-charging-prefix-background = ${colors.foreground}
+format-charging-prefix-background = ${colors.primary}
 format-charging-suffix = %{T3}%{T-}
 format-charging-suffix-foreground = ${colors.background}
 format-charging-suffix-background = ${colors.background}
 
 
 format-discharging-background = ${colors.background}
-format-discharging-foreground = ${colors.foreground}
+format-discharging-foreground = ${colors.primary}
 format-discharging-prefix = %{T3}%{T-}
 format-discharging-prefix-foreground = ${colors.background}
-format-discharging-prefix-background = ${colors.foreground}
+format-discharging-prefix-background = ${colors.primary}
 format-discharging-suffix = %{T3}%{T-}
 format-discharging-suffix-foreground = ${colors.background}
 format-discharging-suffix-background = ${colors.background}
 
 format-full-background = ${colors.background}
-format-full-foreground = ${colors.foreground}
+format-full-foreground = ${colors.primary}
 format-full-prefix = %{T3}%{T-}
 format-full-prefix-foreground = ${colors.background}
-format-full-prefix-background = ${colors.foreground}
+format-full-prefix-background = ${colors.primary}
 format-full-suffix = %{T3}%{T-}
 format-full-suffix-foreground = ${colors.background}
 format-full-suffix-background = ${colors.foreground}
@@ -138,7 +147,7 @@ format-prefix-background = ${colors.primary}
 type = internal/memory
 format = <label>
 label = "  %percentage_used%% "
-
+;label = "  %gb_used% "
 interval = 3
 format-background = ${colors.primary}
 format-foreground = ${colors.background}
@@ -186,16 +195,14 @@ format-prefix-background = ${colors.background}
 type = internal/network
 format-connected =  <label-connected>
 ;label-connected = %essid% :  %upspeed%   %downspeed%
-label-connected = "%essid%   " 
+label-connected = "%essid% " 
 interface = wlp2s0
 format-disconnected-background = ${colors.foreground}
 format-disconnected-prefix = %{T3}%{T-}
 format-disconnected-prefix-foreground = ${colors.foreground}
 format-disconnected-prefix-background = ${colors.background}
 format-connected-foreground = ${colors.background}
-format-connected-background = ${colors.foreground}
-format-connected-suffix-foreground = ${colors.foreground}
-format-connected-suffix-background = ${colors.background}
+format-connected-background = ${colors.primary}
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 [module/ip]
 type = internal/network
@@ -312,10 +319,10 @@ label-occupied-foreground = ${color.secondary}
 [module/date]
 type = internal/date
 interval = 1.0
-date =  %A %b %e
-time = %l:%M %p
+date = %A %e %b
+time = %H:%M
 format =   <label>
-label = %time%, %date%
+label = %time% %date%
 format-foreground = #f8f8f2
 ;format-background = ${colors.background-alt}
 ;format-prefix = %{T3}%{T-}
@@ -324,4 +331,21 @@ format-foreground = #f8f8f2
 ;format-suffix = %{T3}%{T-}
 ;format-suffix-foreground = ${colors.background-alt}
 ;format-suffix-background = ${colors.background}
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+[module/storage]
+type = internal/fs
+mount-0 = /
+interval = 10
+fixed-values=true
+;label-mounted = %free%
+label-mounted = %percentage_free%%
+format-mounted = "  <label-mounted>  "
+format-foreground = #f8f8f2
+format-mounted-foreground = ${colors.background}
+format-mounted-background = ${colors.foreground}
+format-mounted-suffix-foreground = ${colors.primary}
+format-mounted-suffix-background = ${colors.foreground}
+format-mounted-suffix = %{T3}%{T-}
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
