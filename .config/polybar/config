@@ -53,6 +53,10 @@ font-0 = Comfortaa:pixelsize=14;3
 font-1 = UbuntuMono Nerd Font:size=16;3
 font-2 = UbuntuMono Nerd Font:size=25;6
 
+[bar/blendr]
+inherit = bar/main
+monitor = HDMI1
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

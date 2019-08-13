@@ -35,6 +35,7 @@ ZSH_THEME="agnoster"
 # Uncomment the following line if pasting URLs and other text is messed up.
 # DISABLE_MAGIC_FUNCTIONS=true
 
+
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
 
@@ -105,4 +106,30 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias subl='subl3'
-alias mouse='python /home/daan/Documents/Python/mouse.py'
+alias mouse='python /home/daan/Documents/Github/Python/mouse.py'
+
+alias sound='gnome-control-center sound'
+alias settings='gnome-control-center'
+alias start_docker='sudo systemctl start docker'
+alias stop_docker='docker kill $(docker ps -q) && sleep 1  &&  sudo systemctl stop docker'
+alias dc='sudo docker-compose -f /home/daan/Documents/docker-compose.yml up -d --remove-orphans'
+alias batt_info='upower -i /org/freedesktop/UPower/devices/battery_BAT0'
+alias plz='sudo'
+alias please='sudo $(fc -ln -1)'
+
+function dedic() {
+	if [ $1 = 'on' ] 
+	then 
+		sudo tee /proc/acpi/bbswitch <<< ON
+		echo Dedicated graphics turned on.
+	elif [ $1 = 'off' ] 
+	then 
+		sudo tee /proc/acpi/bbswitch <<< OFF
+		echo Dedicated graphics turned off.
+	elif [ $1 = 'info' ] 
+	then 
+		sudo cat /proc/acpi/bbswitch 
+	else 
+		echo 'not a valid option'
+	fi
+}
