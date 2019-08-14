@@ -133,3 +133,18 @@ function dedic() {
 		echo 'not a valid option'
 	fi
 }
+
+function screen(){
+	if [ $1 = 'laptop' ]
+	then
+		~/.screenlayout/laptop.sh
+	elif [ $1 = 'home' ]
+	then
+		~/.screenlayout/home_4K.sh
+	elif [ $1 = '4K' ]
+	then
+		~/.screenlayout/4K_only.sh
+	else 
+		echo 'not a valid option'
+	fi
+}
