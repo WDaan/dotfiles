@@ -356,7 +356,7 @@ format-mounted-suffix = %{T3}%{T-}
 type = custom/script
 interval = 0.2
 exec = echo "$(light | cut -d. -f1)"
-
+click-left = exec #makes mouse look like pointer
 scroll-up = exec light -A 5
 scroll-down = exec light -U 1
 
