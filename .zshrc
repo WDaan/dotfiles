@@ -114,8 +114,8 @@ alias start_docker='sudo systemctl start docker'
 alias stop_docker='docker kill $(docker ps -q) && sleep 1  &&  sudo systemctl stop docker'
 alias dc='sudo docker-compose -f /home/daan/Documents/docker-compose.yml up -d --remove-orphans'
 alias batt_info='upower -i /org/freedesktop/UPower/devices/battery_BAT0'
-alias plz='sudo'
-alias please='sudo $(fc -ln -1)'
+alias plz='sudo $(fc -ln -1)'
+alias ssh='TERM=xterm ssh'
 
 function dedic() {
 	if [ $1 = 'on' ] 
@@ -144,6 +144,9 @@ function screen(){
 	elif [ $1 = '4K' ]
 	then
 		~/.screenlayout/4K_only.sh
+	elif [ $1 = 'blendr' ]
+	then
+		~/.screenlayout/blendr.sh
 	else 
 		echo 'not a valid option'
 	fi

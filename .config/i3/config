@@ -46,13 +46,10 @@ bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
 ################################################################################################
 
 # Start Applications
-bindsym $mod+F2 exec palemoon
 bindsym $mod+F3 exec pcmanfm
 # bindsym $mod+F3 exec ranger
 bindsym $mod+Shift+F3 exec gksu pcmanfm
 bindsym $mod+F5 exec terminal -e 'mocp'
-bindsym $mod+t exec --no-startup-id pkill compton
-bindsym $mod+Ctrl+t exec --no-startup-id compton -b
 bindsym $mod+Shift+d --release exec "killall dunst; exec dunstify 'restart dunst'"
 bindsym Print exec --no-startup-id i3-scrot
 bindsym $mod+Print --release exec --no-startup-id i3-scrot -w
@@ -105,7 +102,7 @@ bindsym $mod+f fullscreen toggle
 #bindsym $mod+Shift+s layout toggle split
 
 # toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
+bindsym $mod+shift+space floating toggle
 
 # change focus between tiling / floating windows
 #bindsym $mod+space focus mode_toggle
@@ -271,9 +268,13 @@ exec --no-startup-id pamac-tray
 exec --no-startup-id clipit
 # exec --no-startup-id blueman-applet
 # exec_always --no-startup-id sbxkb
-exec --no-startup-id xautolock -time 10 -locker blurlock
+# exec --no-startup-id xautolock -time 1 -locker blurlock
+exec_always --no-startup-id xautolock -detectsleep -time 5 -locker 
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
+
+bindsym $mod+o exec blurlock
+
 
 # Color palette used for the terminal ( ~/.Xresources file )
 # Colors are gathered based on the documentation:
@@ -380,8 +381,8 @@ mode "$mode_gaps_outer" {
 #********************************************************************************
 
 exec_always feh --bg-scale /home/daan/Pictures/wallpaper.jpg
-exec_always --no-startup-id compton &
-exec --no-startup-id flashfocus
+#exec_always --no-startup-id compton -b --backend glx --vsync opengl-mswc
+#exec --no-startup-id flashfocus #useless without compton
 exec --no-startup-id synclient HorizEdgeScroll=1 VertEdgeScroll=1 VertScrollDelta=-111
 exec_always killall clipit; clipit -n &
 exec_always ~/.config/polybar/launch.sh
