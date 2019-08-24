@@ -255,8 +255,6 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-# Lock screen
-bindsym $mod+9 exec --no-startup-id blurlock
 
 # Autostart applications
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
@@ -268,12 +266,8 @@ exec --no-startup-id pamac-tray
 exec --no-startup-id clipit
 # exec --no-startup-id blueman-applet
 # exec_always --no-startup-id sbxkb
-# exec --no-startup-id xautolock -time 1 -locker blurlock
-exec_always --no-startup-id xautolock -detectsleep -time 5 -locker 
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
-
-bindsym $mod+o exec blurlock
 
 
 # Color palette used for the terminal ( ~/.Xresources file )
