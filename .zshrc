@@ -47,7 +47,6 @@ ZSH_THEME="agnoster"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # COMPLETION_WAITING_DOTS="true"
-
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
@@ -74,6 +73,10 @@ plugins=(
     git
     zsh-syntax-highlighting
     zsh-autosuggestions
+    last-working-dir
+    web-search
+    z
+    npm
 )
 
 
@@ -116,6 +119,7 @@ alias dc='sudo docker-compose -f /home/daan/Documents/docker-compose.yml up -d -
 alias batt_info='upower -i /org/freedesktop/UPower/devices/battery_BAT0'
 alias plz='sudo $(fc -ln -1)'
 alias ssh='TERM=xterm ssh'
+alias cat='pygmentize -g'
 
 function dedic() {
 	if [ $1 = 'on' ] 
