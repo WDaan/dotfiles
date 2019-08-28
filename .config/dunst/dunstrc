@@ -25,7 +25,7 @@
     #   %i  iconname (including its path)
     #   %I  iconname (without its path)
     #   %p  progress value if set ([  0%] to [100%]) or nothing
-    format = "%I%a\n<b>%s</b>\n%b\n%p"
+    format = "<b>%s</b>\n%b"
 
     # The geometry of the window. Format: [{width}]x{height}[+/-{x}+/-{y}]
     # The height = number of notifications, all other variables are px
@@ -39,7 +39,7 @@
     allow_markup = yes
     plain_text = no             # Treat message as plain text
     sort = yes                  # Sort messages by urgency
-    indicate_hidden = yes       # Show how many messages are currently hidden (see geometry)
+    indicate_hidden = no       # Show how many messages are currently hidden (see geometry)
     alignment = center          # Align text left/center/right
     bounce_freq = 0             # Frequency to bounce text back and forth if it is longer than the window width (conflicts with "word_wrap")
     show_age_threshold = 60     # Show if message is older than x seconds (-1 to disable)
@@ -58,8 +58,8 @@
     separator_color = frame     # Color for separator: auto/foreground/frame/X color
     icon_position = left        # Align icons left/right/off
 
-    idle_threshold = 120        # Don't remove messages if the user is idle (no mouse or keyboard input) for longer than idle_threshold seconds
-    sticky_history = yes        # Make notifications remain until clicked on (yes) or timeout as normal (no) when recalled from history
+    idle_threshold = 10        # Don't remove messages if the user is idle (no mouse or keyboard input) for longer than idle_threshold seconds
+    sticky_history = no        # Make notifications remain until clicked on (yes) or timeout as normal (no) when recalled from history
     history_length = 20         # Maximum amount of notifications kept in history
 
     icon_folders = /usr/share/icons/ePapirus/16x16

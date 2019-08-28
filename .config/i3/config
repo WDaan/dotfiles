@@ -91,7 +91,7 @@ bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_
 # split orientation
 bindsym $mod+h split h;exec dunstify 'tile horizontally'
 bindsym $mod+v split v;exec dunstify 'tile vertically'
-bindsym $mod+q split toggle;exec dunstify 'Toggle Split'
+bindsym $mod+q split toggle;exec ~/Documents/scrips/toggle_dir.sh 
 
 # toggle fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -391,7 +391,7 @@ bindsym $mod+space exec rofi -show drun
 bindsym exec --no-startup-id flash_window
 
 #notifications
-exec --no-startup-id dunst
+exec_always --no-startup-id dunst
 
 # FN keys
 # Pulse Audio controls
