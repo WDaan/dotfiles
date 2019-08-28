@@ -77,6 +77,7 @@ plugins=(
     web-search
     z
     npm
+    git
 )
 
 
@@ -120,6 +121,7 @@ alias batt_info='upower -i /org/freedesktop/UPower/devices/battery_BAT0'
 alias plz='sudo $(fc -ln -1)'
 alias ssh='TERM=xterm ssh'
 alias cat='pygmentize -g'
+alias usage='du -h -d1'
 
 function dedic() {
 	if [ $1 = 'on' ] 
