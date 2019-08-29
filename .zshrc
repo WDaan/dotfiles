@@ -122,6 +122,8 @@ alias plz='sudo $(fc -ln -1)'
 alias ssh='TERM=xterm ssh'
 alias cat='pygmentize -g'
 alias usage='du -h -d1'
+alias cowsay='cowsay -f $(ls /usr/share/cows | shuf -n1)'
+
 
 function dedic() {
 	if [ $1 = 'on' ] 
