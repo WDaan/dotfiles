@@ -31,7 +31,7 @@ install_zsh(){
 change_hostname(){
     sudo rm /etc/hostname
     sudo touch /etc/hostname
-    echo 'pi4' >> /etc/hostname
+    echo 'pi4' | sudo tee -a /etc/hostname
 }
 
 install_node(){
@@ -57,7 +57,7 @@ adding_alias(){
     echo "alias supdate='sudo apt-get update && sudo apt-get upgrade -y'" >> .zshrc
     echo "alias cat='pygmentize -g'" >> .zshrc
     echo "alias usage='du -h -d1'" >> .zshrc
-    echo "alias temp='vcgemdcmd measure_temp'" >> .zshrc
+    echo "alias temp='vcgencmd measure_temp'" >> .zshrc
     echo "alias home='cd /home/pi'" >> .zshrc
 
     source .zshrc
