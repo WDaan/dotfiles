@@ -91,7 +91,7 @@ bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_
 # split orientation
 bindsym $mod+h split h;exec dunstify 'tile horizontally'
 bindsym $mod+v split v;exec dunstify 'tile vertically'
-bindsym $mod+q split toggle;exec ~/Documents/Github/dotfiles/scrips/toggle_dir.sh
+bindsym $mod+q split toggle;exec ~/Documents/Github/dotfiles/scripts/toggle_dir.sh
 
 # toggle fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -210,9 +210,6 @@ bindsym $mod+Shift+c reload
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
-
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # Set shut down, restart and locking features
 bindsym $mod+0 mode "$mode_system"
@@ -418,6 +415,9 @@ bindsym XF86AudioPlay exec playerctl play-pause; exec dunstify 'Toggle Play/Paus
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
+
+#flameshot gui
+bindsym $mod+s exec flameshot gui
 
 
 #********************************************************************************
