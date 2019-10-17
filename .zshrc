@@ -112,7 +112,7 @@ alias subl='subl3'
 alias mouse='python /home/daan/Documents/Github/dotfiles/scripts/mouse.py'
 
 alias sound='gnome-control-center sound'
-alias settings='xfce4-settings-manager'
+alias settings='gnome-control-center'
 alias start_docker='sudo systemctl start docker'
 alias stop_docker='docker kill $(docker ps -q) && sleep 1  &&  sudo systemctl stop docker'
 alias dc='sudo docker-compose -f /home/daan/Documents/docker-compose.yml up -d --remove-orphans'
@@ -122,8 +122,6 @@ alias ssh='TERM=xterm ssh'
 alias cat='pygmentize -g'
 alias usage='du -h -d1'
 alias cowsay='cowsay -f $(ls /usr/share/cows | shuf -n1)'
-alias kill_xfce='pgrep xfce4-panel && xfce4-panel -q || xfce4-panel'
-alias kill_nm='killall nm-applet'
 
 function dedic() {
 	if [ $1 = 'on' ] 
