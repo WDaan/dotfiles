@@ -137,7 +137,14 @@ install_node
 install_rmate
 install_python
 else
-	sudo pacman -S zsh
+    sudo pacman -S zsh
+    sudo pacman -S node npm python-pygments tree git base-devel
+
+    #install yay
+    git clone https://aur.archlinux.org/yay.git
+    cd yay
+    makepkg -si
+
 fi
 
 configure_zsh
