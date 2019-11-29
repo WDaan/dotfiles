@@ -44,7 +44,7 @@ change_hostname(){
 }
 
 install_node(){
-    curl -sL https://deb.nodesource.com/setup_10.x | sudo bash -
+    curl -sL https://deb.nodesource.com/setup_12.x | sudo bash -
     sudo apt install -y nodejs
     sudo apt install npm
 }
@@ -69,6 +69,7 @@ configure_zsh(){
     git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
 
     rm .zshrc
+    cd ~
 
 cat <<EOT >> .zshrc
 export ZSH="/home/daan/.oh-my-zsh"
@@ -95,8 +96,6 @@ alias dc='sudo docker-compose -f /home/daan/Documents/docker-compose.yml up -d -
 alias plz='sudo $(fc -ln -1)'
 alias cat='pygmentize -g'
 alias usage='du -h -d1'
-alias cowsay='cowsay -f $(ls /usr/share/cows | shuf -n1)'
-alias kc='kubectl'
 
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=5'
@@ -108,7 +107,7 @@ EOT
 
 adding_alias(){
     echo "alias supdate='sudo apt-get update && sudo apt-get upgrade -y'" >> .zshrc
-    source .zshrc
+    source .zshrYc
 }
 
 read -p 'using a rpi? y/n:  ' rpi
@@ -137,14 +136,15 @@ install_node
 install_rmate
 install_python
 else
-    sudo pacman -S zsh
-    sudo pacman -S node npm python-pygments tree git base-devel
-
+    sudo pacman -S git base-devel
+	sudo pacman -S zsh
+    sudo pacman -S nodejs npm python-pygments tree
+    sudo pacman -S docker docker-compose
+    cd ~
     #install yay
     git clone https://aur.archlinux.org/yay.git
     cd yay
     makepkg -si
-
 fi
 
 configure_zsh
