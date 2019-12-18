@@ -50,9 +50,8 @@ install_node(){
 }
 
 install_rmate(){
-    mkdir bin
-    curl -Lo ~/bin/rmate https://raw.githubusercontent.com/textmate/rmate/master/bin/rmate
-    chmod a+x ~/bin/rmate
+    sudo wget -O /usr/local/bin/rsub \https://raw.github.com/aurora/rmate/master/rmate
+    sudo chmod a+x /usr/local/bin/rsub
 }
 
 install_python(){
