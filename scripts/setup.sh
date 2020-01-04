@@ -71,7 +71,7 @@ configure_zsh(){
     cd ~
 
 cat <<EOT >> .zshrc
-export ZSH="/home/daan/.oh-my-zsh"
+export ZSH="/home/${username}/.oh-my-zsh"
 
 ZSH_THEME="agnoster"
 
@@ -91,7 +91,7 @@ source $ZSH/oh-my-zsh.sh
 
 alias start_docker='sudo systemctl start docker'
 alias stop_docker='docker kill $(docker ps -q) && sleep 1  &&  sudo systemctl stop docker'
-alias dc='sudo docker-compose -f /home/daan/Documents/docker-compose.yml up -d --remove-orphans'
+alias dc='sudo docker-compose -f /home/${username}/Documents/docker-compose.yml up -d --remove-orphans'
 alias plz='sudo $(fc -ln -1)'
 alias cat='pygmentize -g'
 alias usage='du -h -d1'
@@ -125,6 +125,7 @@ else
 fi
 
 read -p 'which hostname?:  ' hostname
+read -p 'which username?:  ' username
 
 change_hostname hostname
 
