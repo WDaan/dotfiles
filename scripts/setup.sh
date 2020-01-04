@@ -11,6 +11,9 @@ update_pi(){
 
     #clean useless packages
     sudo apt autoremove
+    
+    #add general packages
+    sudo apt-get install git curl tree trash-cli ufw neofetch
 }
 
 update_deb(){
@@ -23,6 +26,9 @@ update_deb(){
 	#clean
 	sudo apt autoclean
 	sudo apt autoremove -y
+	
+	#add general packages
+    	sudo apt-get install git curl tree trash-cli ufw neofetch
 }
 
 update_arch(){
@@ -33,8 +39,7 @@ update_arch(){
 }
 
 install_zsh(){
-    sudo apt install git zsh
-    sudo apt install curl
+    sudo apt install zsh 
 }
 
 change_hostname(){
