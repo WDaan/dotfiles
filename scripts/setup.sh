@@ -108,10 +108,10 @@ install_python(){
 
 configure_zsh(){
 	#install oh-my-zsh
-    	sudo -u $username sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    	sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
     	#zsh plugins
-    	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-/home/$username/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-    	git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-/home/$username/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    	git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
     	rm /home/$username/.zshrc
     	cd ~
@@ -128,7 +128,7 @@ plugins=(
     npm
     git
 )
-source ~/.oh-my-zsh/oh-my-zsh.sh
+source /root/.oh-my-zsh/oh-my-zsh.sh
 alias start_docker='sudo systemctl start docker'
 alias stop_docker='docker kill $(docker ps -q) && sleep 1  &&  sudo systemctl stop docker'
 alias dc='sudo docker-compose -f /home/${username}/Documents/docker-compose.yml up -d --remove-orphans'
