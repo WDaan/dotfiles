@@ -26,7 +26,7 @@ update_deb(){
 }
 
 update_arch(){
-	sudo pacman -Syu
+	sudo pacman -Syu --noconfirm
 
 	#clean
 	sudo pacman -Scc
@@ -34,16 +34,18 @@ update_arch(){
 
 #general packages
 general_packages(){
+	printf '====Installing general packages ====\n'
 	if [ $debian = 'true' ]
 	then
-        sudo apt-get install git curl tree trash-cli neofetch
+    sudo apt-get install git curl tree trash-cli neofetch -y
 	elif [ $arch = 'true' ]
 	then
-	sudo pacman -S git curl tree trash-cli neofetch
+	sudo pacman -S git curl tree trash-cli neofetch --noconfirm
 	fi
 }
 
 install_zsh(){
+	printf '====Installing zsh ====\n'
   	if [ $debian = 'true' ] || [ $rpi = 'true' ]
 	then
     sudo apt install zsh 
@@ -54,30 +56,32 @@ install_zsh(){
 }
 
 install_node(){
+	printf '====Installing node ====\n'
 	if [ $debian = 'true' ] || [ $rpi = 'true' ]
 	then
     curl -sL https://deb.nodesource.com/setup_12.x | sudo bash -
-    sudo apt install -y nodejs
-    sudo apt install npm
+    sudo apt install nodejs npm -y
 	elif [ $arch = 'true' ]
 	then
-	sudo pacman -S nodejs npm
+	sudo pacman -S nodejs npm --noconfirm
 	fi
     
 }
 
 install_rmate(){
+	printf '====Installing rmate ====\n'
     sudo wget -O /usr/local/bin/rsub \https://raw.github.com/aurora/rmate/master/rmate
     sudo chmod a+x /usr/local/bin/rsub
 }
 
 instal_docker(){
+	printf '====Installing docker ====\n'
 	if [ $debian = 'true' ]
 	then
     sudo apt install docker docker-compose -y 
 	elif [ $arch = 'true' ]
 	then
-	sudo pacman -S docker docker-compose
+	sudo pacman -S docker docker-compose --noconfirm
 	elif [ $rpi = 'true' ]
 	then
 	curl -fsSL get.docker.com -o get-docker.sh && sh get-docker.sh
@@ -88,14 +92,13 @@ instal_docker(){
 }
 
 install_python(){
+	printf '====Installing python ====\n'
     if [ $debian = 'true' ] || [ $rpi = 'true' ]
 	then
-    sudo apt-get install python3-pip -y
-    sudo apt-get install python3 -y
-    sudo apt-get install python3-pygments
+    sudo apt-get install python3 python3-pip python3-pygments -y
 	elif [ $arch = 'true' ]
 	then
-	sudo pacman -S python3 python3-pip pygmentize
+	sudo pacman -S python3 python3-pip pygmentize --noconfirm
 	fi
     
 }
@@ -148,11 +151,8 @@ change_hostname(){
 }
 
 start_install(){
-	if [ $result[0] = 'true' ]
-	 then 
-	 	install_zsh
-	  	configure_zsh
-	fi
+	printf '==== Starting installation ====\n'
+	if [ $result[0] = 'true' ]; then install_zsh && configure_zsh; fi;
 	if [ $result[1] = 'true' ]; then install_node; fi;
 	if [ $result[2] = 'true' ]; then install_rmate; fi;
 	if [ $result[3] = 'true' ]; then install_python; fi;
@@ -270,6 +270,7 @@ select opt in "${options[@]}"
 do
 	case $opt in
         "rpi")
+		  printf '==== RPI ====\n'
 		  rpi='true'
 		  update_pi
 		  general_packages
@@ -278,6 +279,7 @@ do
           break
           ;;
         "debian")
+		  printf '==== DEBIAN ====\n'
 		  debian='true'
 		  update_deb
 		  general_packages
@@ -286,6 +288,7 @@ do
           break
           ;;
         "arch")
+		  printf '==== arch ====\n'
 		  arch='true'
 		  update_arch
 		  general_packages
