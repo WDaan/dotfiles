@@ -98,7 +98,7 @@ install_python(){
 	printf '====Installing python ====\n'
     if [ $debian = 'true' ] || [ $rpi = 'true' ]
 	then
-    sudo apt-get install python3 python3-pip python3-pygments -y
+    sudo apt-get install python3 python3-pip python-pygments -y
 	elif [ $arch = 'true' ]
 	then
 	sudo pacman -S python3 python3-pip pygmentize --noconfirm
