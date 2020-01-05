@@ -302,6 +302,28 @@ function multiselect {
 #asking which packages
 multiselect result "oh-my-zsh;node;rmate;python;docker;samba;change hostname/username" "true;true;;true;;;;"
 
+
+#create user?
+#asking which kind of system
+PS3='Please enter your choice: '
+options=("Yes" "No")
+select opt in "${options[@]}"
+do
+	case $opt in
+        "Yes")
+		read -p 'which username?  ' username
+		cp -r ~/.ssh /home/$username/.ssh
+		useradd $username
+		usermod -aG sudo $username
+		su $username
+		sudo chown -r $USER ~/.ssh
+          break
+          ;;
+        *) echo "invalid option";;
+	esac
+done
+
+
 #asking which kind of system
 PS3='Please enter your choice: '
 options=("rpi" "debian" "arch" "Quit")
