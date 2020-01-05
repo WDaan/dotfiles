@@ -38,9 +38,10 @@ general_packages(){
 	if [ $debian = 'true' ]
 	then
     sudo apt-get install git curl tree trash-cli neofetch -y
+    wget https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh -O- | sh
 	elif [ $arch = 'true' ]
 	then
-	sudo pacman -S git curl tree trash-cli neofetch --noconfirm
+	sudo pacman -S git curl tree trash-cli neofetch nano-syntax-highlighting --noconfirm
 	fi
 }
 
