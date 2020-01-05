@@ -156,6 +156,32 @@ change_hostname(){
 
 setup_samba(){
 	printf '====Setting up SAMBA (WIP) ====\n'
+	if [ $debian = 'true' ] || [ $rpi = 'true' ]
+	then
+    	sudo apt-get install samba ufw -y
+	read -p 'which directory?  ' directory
+	read -p 'which sharename?  ' sharename
+	
+	cat << EOT
+	
+	[$sharename]
+    		comment = Samba on Ubuntu
+    		path = $directory
+    		read only = no
+   		browsable = yes
+	EOT | sudo tee -a /etc/samba/smb.conf
+	
+	sudo service smbd restart
+	
+	sudo ufw allow samba
+	
+	sudo smbpasswd -a $USER
+	
+	elif [ $arch = 'true' ]
+	then
+	printf '==== SAMBA setup on Arch not implemented ====\n'
+	fi
+	
 }
 
 start_install(){
@@ -166,7 +192,7 @@ start_install(){
 	if [ "${result[3]}" = true ]; then install_python; fi;
 	if [ "${result[4]}" = true ]; then instal_docker; fi;
 	if [ "${result[5]}" = true ]; then setup_samba; fi;
-	if [ "${result[5]}" = true ]
+	if [ "${result[6]}" = true ]
 	then
 		read -p 'which hostname?  ' hostname
 		read -p 'which username?  ' username
