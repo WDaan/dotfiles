@@ -152,11 +152,11 @@ change_hostname(){
 
 start_install(){
 	printf '==== Starting installation ====\n'
-	if [ $result[0] = 'true' ]; then install_zsh && configure_zsh; fi;
-	if [ $result[1] = 'true' ]; then install_node; fi;
-	if [ $result[2] = 'true' ]; then install_rmate; fi;
-	if [ $result[3] = 'true' ]; then install_python; fi;
-	if [ $result[4] = 'true' ]; then instal_docker; fi;
+	if [ "${result[0]}" = true ]; then install_zsh && configure_zsh; fi;
+	if [ "${result[1]}" = true ]; then install_node; fi;
+	if [ "${result[2]}" = true ]; then install_rmate; fi;
+	if [ "${result[3]}" = true ]; then install_python; fi;
+	if [ "${result[4]}" = true ]; then instal_docker; fi;
 }
 
 function multiselect {
