@@ -108,10 +108,14 @@ install_python(){
 
 configure_zsh(){
 	#install oh-my-zsh
-    	sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+	wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh
+	sed -i "s,${ZSH:-~/.oh-my-zsh},${ZSH:-/home/$username/.oh-my-zsh}," install.sh
+	chmod a+x install.sh
+	./install.sh
+	rm install.sh
     	#zsh plugins
-    	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-    	git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-/home/$username/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    	git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-/home/$username/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
     	rm /home/$username/.zshrc
     	cd ~
@@ -305,9 +309,8 @@ do
 		read -p 'which username?  ' username
 		adduser $username
 		mkdir /home/$username/.ssh
-		cp /root/.ssh/authorized_keys /home/$username/.ssh/
-    chmod 700 /home/$username/.ssh
-    chmod 600 /home/$username/.ssh/authorized_keys
+		cp /root/.ssh/authorized_keys  /home/daan/.ssh/
+    		chown -R $username:$username /home/daan/.ssh/
 		usermod -aG sudo $username
 		sudo chown -r $username:$username /home/$username/.ssh
           break
