@@ -49,7 +49,7 @@ install_zsh(){
 	printf '====Installing zsh ====\n'
   	if [ $debian = 'true' ] || [ $rpi = 'true' ]
 	then
-    	sudo apt install zsh 
+    	sudo -u $username apt install zsh 
 	elif [ $arch = 'true' ]
 	then
 	sudo pacman -S zsh
@@ -108,10 +108,10 @@ install_python(){
 
 configure_zsh(){
 	#install oh-my-zsh
-    	sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    	sudo -u $username sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
     	#zsh plugins
-    	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-    	git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-/home/$username/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    	git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-/home/$username/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
     	rm /home/$username/.zshrc
     	cd ~
