@@ -319,7 +319,7 @@ do
 		sudo chown -r $username:$username /home/$username/.ssh
           break
           ;;
-        *) echo "invalid option" && exit;;
+        *) printf 'Not creating extra user\n' && username=$USER ;;
 	esac
 done
 
