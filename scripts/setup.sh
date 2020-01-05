@@ -54,6 +54,8 @@ install_zsh(){
 	then
 	sudo pacman -S zsh
 	fi
+	
+	chsh -s /usr/bin/zsh $username
 }
 
 install_node(){
@@ -132,7 +134,7 @@ plugins=(
     npm
     git
 )
-source /root/.oh-my-zsh/oh-my-zsh.sh
+source ~/.oh-my-zsh/oh-my-zsh.sh
 alias start_docker='sudo systemctl start docker'
 alias stop_docker='docker kill $(docker ps -q) && sleep 1  &&  sudo systemctl stop docker'
 alias dc='sudo docker-compose -f /home/${username}/Documents/docker-compose.yml up -d --remove-orphans'
@@ -141,6 +143,8 @@ alias cat='pygmentize -g'
 alias usage='du -h -d1'
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=5'
 EOT
+
+chown $username /home/$username/.zshrc
 
 }
 
