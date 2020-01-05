@@ -106,6 +106,7 @@ install_python(){
 configure_zsh(){
 	#install oh-my-zsh
     sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    exit
     #zsh plugins
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
     git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
@@ -125,7 +126,7 @@ plugins=(
     npm
     git
 )
-source $ZSH/oh-my-zsh.sh
+source ~/.oh-my-zsh/oh-my-zsh.sh
 alias start_docker='sudo systemctl start docker'
 alias stop_docker='docker kill $(docker ps -q) && sleep 1  &&  sudo systemctl stop docker'
 alias dc='sudo docker-compose -f /home/${username}/Documents/docker-compose.yml up -d --remove-orphans'
