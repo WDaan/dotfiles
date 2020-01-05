@@ -37,7 +37,7 @@ general_packages(){
 	printf '====Installing general packages ====\n'
 	if [ $debian = 'true' ]
 	then
-    	sudo apt-get install git curl tree trash-cli neofetch -y
+    	sudo apt-get install git curl tree trash-cli neofetch unzip -y
     	wget https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh -O- | sh
 	elif [ $arch = 'true' ]
 	then
@@ -49,7 +49,7 @@ install_zsh(){
 	printf '====Installing zsh ====\n'
   	if [ $debian = 'true' ] || [ $rpi = 'true' ]
 	then
-    	sudo -u $username apt install zsh 
+    	sudo apt install zsh 
 	elif [ $arch = 'true' ]
 	then
 	sudo pacman -S zsh
