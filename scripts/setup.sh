@@ -54,9 +54,16 @@ install_zsh(){
 }
 
 install_node(){
+	if [ $debian = 'true' ] || [ $rpi = 'true' ]
+	then
     curl -sL https://deb.nodesource.com/setup_12.x | sudo bash -
     sudo apt install -y nodejs
     sudo apt install npm
+	elif [ $arch = 'true' ]
+	then
+	sudo pacman -S nodejs npm
+	fi
+    
 }
 
 install_rmate(){
@@ -264,18 +271,24 @@ do
 	case $opt in
         "rpi")
 		  rpi='true'
+		  update_pi
+		  general_packages
 		  start_install
 		  adding_alias
           break
           ;;
         "debian")
 		  debian='true'
+		  update_deb
+		  general_packages
 		  start_install
 		  adding_alias
           break
           ;;
         "arch")
 		  arch='true'
+		  update_arch
+		  general_packages
 		  start_install
           break
           ;;
