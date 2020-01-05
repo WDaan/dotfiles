@@ -9,8 +9,8 @@ update_pi(){
 	# update firmware
 	sudo rpi-update
 
-    #clean useless packages
-    sudo apt autoremove
+    	#clean useless packages
+    	sudo apt autoremove
 }
 
 update_deb(){
@@ -37,8 +37,8 @@ general_packages(){
 	printf '====Installing general packages ====\n'
 	if [ $debian = 'true' ]
 	then
-    sudo apt-get install git curl tree trash-cli neofetch -y
-    wget https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh -O- | sh
+    	sudo apt-get install git curl tree trash-cli neofetch -y
+    	wget https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh -O- | sh
 	elif [ $arch = 'true' ]
 	then
 	sudo pacman -S git curl tree trash-cli neofetch nano-syntax-highlighting --noconfirm
@@ -49,7 +49,7 @@ install_zsh(){
 	printf '====Installing zsh ====\n'
   	if [ $debian = 'true' ] || [ $rpi = 'true' ]
 	then
-    sudo apt install zsh 
+    	sudo apt install zsh 
 	elif [ $arch = 'true' ]
 	then
 	sudo pacman -S zsh
@@ -60,10 +60,10 @@ install_node(){
 	printf '====Installing node ====\n'
 	if [ $debian = 'true' ] || [ $rpi = 'true' ]
 	then
-    curl -sL https://deb.nodesource.com/setup_12.x | sudo bash -
-    sudo apt install -y nodejs
-    # seperate because npm needs nodejs before it can install
-    sudo apt install  npm -y
+    	curl -sL https://deb.nodesource.com/setup_12.x | sudo bash -
+    	sudo apt install -y nodejs
+    	# seperate because npm needs nodejs before it can install
+    	sudo apt install  npm -y
 	elif [ $arch = 'true' ]
 	then
 	sudo pacman -S nodejs npm --noconfirm
@@ -73,8 +73,8 @@ install_node(){
 
 install_rmate(){
 	printf '====Installing rmate ====\n'
-    sudo wget -O /usr/local/bin/rsub \https://raw.github.com/aurora/rmate/master/rmate
-    sudo chmod a+x /usr/local/bin/rsub
+    	sudo wget -O /usr/local/bin/rsub \https://raw.github.com/aurora/rmate/master/rmate
+    	sudo chmod a+x /usr/local/bin/rsub
 }
 
 instal_docker(){
@@ -96,9 +96,9 @@ instal_docker(){
 
 install_python(){
 	printf '====Installing python ====\n'
-    if [ $debian = 'true' ] || [ $rpi = 'true' ]
+    	if [ $debian = 'true' ] || [ $rpi = 'true' ]
 	then
-    sudo apt-get install python3 python3-pip python-pygments -y
+    	sudo apt-get install python3 python3-pip python-pygments -y
 	elif [ $arch = 'true' ]
 	then
 	sudo pacman -S python3 python3-pip pygmentize --noconfirm
@@ -108,16 +108,15 @@ install_python(){
 
 configure_zsh(){
 	#install oh-my-zsh
-    sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-    exit
-    #zsh plugins
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    	sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    	#zsh plugins
+    	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    	git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
-    rm .zshrc
-    cd ~
+    	rm /home/$username/.zshrc
+    	cd ~
 
-cat <<EOT >> ~/.zshrc
+cat <<EOT >> /home/$username/.zshrc
 export ZSH="/home/${username}/.oh-my-zsh"
 ZSH_THEME="agnoster"
 plugins=(
@@ -139,19 +138,16 @@ alias usage='du -h -d1'
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=5'
 EOT
 
-
-    source ~/.zshrc
 }
 
 adding_alias(){
-    echo "alias supdate='sudo apt-get update && sudo apt-get upgrade -y'" >> ~/.zshrc
-    source ~/.zshrc
+    	echo "alias supdate='sudo apt-get update && sudo apt-get upgrade -y'" >> /home/$username/.zshrc
 }
 
 change_hostname(){
-    sudo rm /etc/hostname
-    sudo touch /etc/hostname
-    echo $hostname | sudo tee -a /etc/hostname
+    	sudo rm /etc/hostname
+    	sudo touch /etc/hostname
+    	echo $hostname | sudo tee -a /etc/hostname
 }
 
 setup_samba(){
@@ -162,20 +158,17 @@ setup_samba(){
 	read -p 'which directory?  ' directory
 	read -p 'which sharename?  ' sharename
 	
-	cat << EOT
-	
-	[$sharename]
-    		comment = Samba on Ubuntu
-    		path = $directory
-    		read only = no
-   		browsable = yes
-	EOT | sudo tee -a /etc/samba/smb.conf
+cat << EOT >> sudo tee -a /etc/samba/smb.conf
+[$sharename]
+comment = Samba on Ubuntu
+path = $directory
+read only = no
+browsable = yes
+EOT
 	
 	sudo service smbd restart
-	
 	sudo ufw allow samba
-	
-	sudo smbpasswd -a $USER
+	sudo smbpasswd -a $username
 	
 	elif [ $arch = 'true' ]
 	then
@@ -195,10 +188,7 @@ start_install(){
 	if [ "${result[6]}" = true ]
 	then
 		read -p 'which hostname?  ' hostname
-		read -p 'which username?  ' username
 		change_hostname
-	else
-		username=$USER
 	fi
 	
 }
@@ -300,11 +290,12 @@ function multiselect {
 }
 
 #asking which packages
-multiselect result "oh-my-zsh;node;rmate;python;docker;samba;change hostname/username" "true;true;;true;;;;"
+multiselect result "oh-my-zsh;node;rmate;python;docker;samba;change hostname" "true;true;;true;;;;"
 
 
 #create user?
 #asking which kind of system
+printf 'Create a user?\n'
 PS3='Please enter your choice: '
 options=("Yes" "No")
 select opt in "${options[@]}"
@@ -312,14 +303,16 @@ do
 	case $opt in
         "Yes")
 		read -p 'which username?  ' username
-		cp -r ~/.ssh /home/$username/.ssh
-		useradd $username
+		adduser $username
+		mkdir /home/$username/.ssh
+		cp /root/.ssh/authorized_keys /home/$username/.ssh/
+    chmod 700 /home/$username/.ssh
+    chmod 600 /home/$username/.ssh/authorized_keys
 		usermod -aG sudo $username
-		su $username
-		sudo chown -r $USER ~/.ssh
+		sudo chown -r $username:$username /home/$username/.ssh
           break
           ;;
-        *) echo "invalid option";;
+        *) echo "invalid option" && exit;;
 	esac
 done
 
