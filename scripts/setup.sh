@@ -112,7 +112,7 @@ configure_zsh(){
     exit
     #zsh plugins
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-    git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
     rm .zshrc
     cd ~
@@ -154,6 +154,10 @@ change_hostname(){
     echo $hostname | sudo tee -a /etc/hostname
 }
 
+setup_samba(){
+	printf '====Setting up SAMBA (WIP) ====\n'
+}
+
 start_install(){
 	printf '==== Starting installation ====\n'
 	if [ "${result[0]}" = true ]; then install_zsh && configure_zsh; fi;
@@ -161,6 +165,16 @@ start_install(){
 	if [ "${result[2]}" = true ]; then install_rmate; fi;
 	if [ "${result[3]}" = true ]; then install_python; fi;
 	if [ "${result[4]}" = true ]; then instal_docker; fi;
+	if [ "${result[5]}" = true ]; then setup_samba; fi;
+	if [ "${result[5]}" = true ]
+	then
+		read -p 'which hostname?  ' hostname
+		read -p 'which username?  ' username
+		change_hostname
+	else
+		username=$USER
+	fi
+	
 }
 
 function multiselect {
@@ -260,12 +274,7 @@ function multiselect {
 }
 
 #asking which packages
-multiselect result "oh-my-zsh;node;rmate;python;docker" "true;true;;true;;"
-
-read -p 'which hostname?  ' hostname
-read -p 'which username?  ' username
-
-change_hostname
+multiselect result "oh-my-zsh;node;rmate;python;docker;samba;change hostname/username" "true;true;;true;;;;"
 
 #asking which kind of system
 PS3='Please enter your choice: '
