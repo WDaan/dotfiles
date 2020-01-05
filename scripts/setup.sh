@@ -60,7 +60,9 @@ install_node(){
 	if [ $debian = 'true' ] || [ $rpi = 'true' ]
 	then
     curl -sL https://deb.nodesource.com/setup_12.x | sudo bash -
-    sudo apt install nodejs npm -y
+    sudo apt install -y nodejs
+    # seperate because npm needs nodejs before it can install
+    sudo apt install  npm -y
 	elif [ $arch = 'true' ]
 	then
 	sudo pacman -S nodejs npm --noconfirm
