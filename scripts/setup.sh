@@ -319,7 +319,7 @@ do
 		sudo chown -r $username:$username /home/$username/.ssh
           break
           ;;
-        *) printf 'Not creating extra user\n' && username=$USER ;;
+        *) printf 'Not creating extra user\n' && username=$USER  && break;;
 	esac
 done
 
