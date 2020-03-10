@@ -6,11 +6,8 @@ update_pi(){
 	sudo apt-get update
 	sudo apt-get -y upgrade
 
-	# update firmware
-	sudo rpi-update
-
-    	#clean useless packages
-    	sudo apt autoremove
+ 	#clean useless packages
+ 	sudo apt autoremove
 }
 
 update_deb(){
@@ -122,7 +119,7 @@ configure_zsh(){
     	rm /home/$username/.zshrc
     	cd ~
 
-cat <<EOT >> /home/$username/.zshrc
+cat << 'EOF' >> /home/$username/.zshrc
 export ZSH="/home/${username}/.oh-my-zsh"
 ZSH_THEME="agnoster"
 plugins=(
@@ -132,7 +129,6 @@ plugins=(
     web-search
     z
     npm
-    git
 )
 source ~/.oh-my-zsh/oh-my-zsh.sh
 alias start_docker='sudo systemctl start docker'
@@ -142,7 +138,8 @@ alias plz='sudo $(fc -ln -1)'
 alias cat='pygmentize -g'
 alias usage='du -h -d1'
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=5'
-EOT
+
+EOF
 
 chown $username /home/$username/.zshrc
 
@@ -185,6 +182,23 @@ EOT
 	
 }
 
+setup_composer(){
+  printf '====Setting up PHP & Composer ====\n'
+  if [ $debian = 'true' ] || [ $rpi = 'true' ]
+  then
+    sudo apt-get install php php-mysql php-mbstring php-zip mariadb-client -y
+    sudo curl -s https://getcomposer.org/installer | php
+    sudo mv composer.phar /usr/local/bin/composer
+    composer global require laravel/installer
+  fi
+
+cat << 'EOF' >> /home/$username/.zshrc
+export PATH="$PATH:$HOME/.composer/vendor/bin"
+EOF
+
+}
+
+
 start_install(){
 	printf '==== Starting installation ====\n'
 	if [ "${result[0]}" = true ]; then install_zsh && configure_zsh; fi;
@@ -198,6 +212,7 @@ start_install(){
 		read -p 'which hostname?  ' hostname
 		change_hostname
 	fi
+  if [ "${result[7]}" = true ]; then setup_composer; fi;
 	
 }
 
@@ -298,7 +313,7 @@ function multiselect {
 }
 
 #asking which packages
-multiselect result "oh-my-zsh;node;rmate;python;docker;samba;change hostname" "true;true;;true;;;;"
+multiselect result "oh-my-zsh;node;rmate;python;docker;samba;change hostname;composer" "true;true;;true;;;;;"
 
 
 #create user?
