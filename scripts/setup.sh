@@ -119,8 +119,11 @@ configure_zsh(){
     	rm /home/$username/.zshrc
     	cd ~
 
-cat << 'EOF' >> /home/$username/.zshrc
+cat << EOF >> /home/$username/.zshrc
 export ZSH="/home/${username}/.oh-my-zsh"
+EOF
+
+cat << 'EOF' >> /home/$username/.zshrc
 ZSH_THEME="agnoster"
 plugins=(
     git
@@ -133,12 +136,15 @@ plugins=(
 source ~/.oh-my-zsh/oh-my-zsh.sh
 alias start_docker='sudo systemctl start docker'
 alias stop_docker='docker kill $(docker ps -q) && sleep 1  &&  sudo systemctl stop docker'
-alias dc='sudo docker-compose -f /home/${username}/Documents/docker-compose.yml up -d --remove-orphans'
 alias plz='sudo $(fc -ln -1)'
 alias cat='pygmentize -g'
 alias usage='du -h -d1'
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=5'
 
+EOF
+
+cat << EOF >> /home/$username/.zshrc
+alias dc='sudo docker-compose -f /home/${username}/Documents/docker-compose.yml up -d --remove-orphans'
 EOF
 
 chown $username /home/$username/.zshrc
