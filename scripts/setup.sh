@@ -192,14 +192,14 @@ setup_composer(){
   printf '====Setting up PHP & Composer ====\n'
   if [ $debian = 'true' ] || [ $rpi = 'true' ]
   then
-    sudo apt-get install php php-mysql php-mbstring php-zip mariadb-client -y
+    sudo apt-get install php php-mysql php-xml php-mbstring php-zip mariadb-client -y
     sudo curl -s https://getcomposer.org/installer | php
     sudo mv composer.phar /usr/local/bin/composer
     composer global require laravel/installer
   fi
 
 cat << 'EOF' >> /home/$username/.zshrc
-export PATH="$PATH:$HOME/.composer/vendor/bin"
+export PATH="$PATH:$HOME/.config/composer/vendor/bin"
 EOF
 
 }
