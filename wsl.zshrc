@@ -14,6 +14,9 @@ plugins=(
     kubectl
 )
 source ~/.oh-my-zsh/oh-my-zsh.sh
+
+eval $(thefuck --alias fuck)
+
 alias plz='sudo $(fc -ln -1)'
 alias cat='pygmentize -g'
 alias usage='du -h -d1'
@@ -79,8 +82,4 @@ done
 g++ "${files[@]}" -o "${array[-1]}";
 ./"${array[-1]}".exe;
 }
-
-alias supdate='sudo apt-get update && sudo apt-get upgrade -y'
-
-eval $(thefuck --alias fuck)
 
