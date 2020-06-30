@@ -125,6 +125,8 @@ EOF
 
 cat << 'EOF' >> /home/$username/.zshrc
 ZSH_THEME="agnoster"
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=5'
+
 plugins=(
     git
     zsh-syntax-highlighting
@@ -132,14 +134,26 @@ plugins=(
     web-search
     z
     npm
+    git
 )
+
 source ~/.oh-my-zsh/oh-my-zsh.sh
-alias start_docker='sudo systemctl start docker'
-alias stop_docker='docker kill $(docker ps -q) && sleep 1  &&  sudo systemctl stop docker'
+
+eval $(thefuck --alias fuck)
+
 alias plz='sudo $(fc -ln -1)'
 alias cat='pygmentize -g'
 alias usage='du -h -d1'
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=5'
+alias supdate='sudo apt-get update && sudo apt-get upgrade -y'
+alias kc='kubectl'
+alias pa='php artisan'
+alias pantr='php artisan tinker'
+
+###################### PATH ################################"
+
+export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+export PATH="$PATH:$HOME/.config/npm/bin"
+export PATH="$PATH:$HOME/.config/composer/vendor/bin"
 
 EOF
 
