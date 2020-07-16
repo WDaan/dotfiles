@@ -1,0 +1,52 @@
+version: "3.1"
+services:
+  mysql-ram:
+      image: circleci/mysql:5.7-ram
+      container_name: mysql-ram
+      restart: always
+      environment:
+        MYSQL_DATABASE: blendr_testing
+        MYSQL_HOST: 127.0.0.1
+        MYSQL_ROOT_HOST: '%'
+        MYSQL_USER: dev
+        MYSQL_PASSWORD: dev
+      ports:
+        - 3307:3306
+      shm_size: 2G
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    command: --default-authentication-plugin=mysql_native_password --max_allowed_packet=32505856
+    restart: always
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      TZ: Europe/Brussels
+
+  redis:
+    container_name: redis
+    image: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - ./redis:/data
+    entrypoint: redis-server --appendonly yes
+    restart: always
+
+  admin:
+    image: phpmyadmin/phpmyadmin
+    container_name: admin
+    restart: always
+    ports:
+      - 8181:80
+    environment:
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD: root
+    depends_on:
+      - mysql
+    links:
+      - mysql
