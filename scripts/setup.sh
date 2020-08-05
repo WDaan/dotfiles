@@ -1,15 +1,6 @@
 #!/bin/bash
 
 # update package and firmware
-update_pi(){
-	# update package
-	sudo apt-get update
-	sudo apt-get -y upgrade
-
- 	#clean useless packages
- 	sudo apt autoremove
-}
-
 update_deb(){
 	sudo apt update
 	sudo apt upgrade -y
@@ -44,7 +35,7 @@ general_packages(){
 
 install_zsh(){
 	printf '====Installing zsh ====\n'
-  	if [ $debian = 'true' ] || [ $rpi = 'true' ]
+  	if [ $debian = 'true' ]
 	then
     	sudo apt install zsh 
 	elif [ $arch = 'true' ]
@@ -57,12 +48,15 @@ install_zsh(){
 
 install_node(){
 	printf '====Installing node ====\n'
-	if [ $debian = 'true' ] || [ $rpi = 'true' ]
+	if [ $debian = 'true' ]
 	then
     	curl -sL https://deb.nodesource.com/setup_12.x | sudo bash -
     	sudo apt install -y nodejs
     	# seperate because npm needs nodejs before it can install
     	sudo apt install  npm -y
+	
+	mkdir "${HOME}/.config/npm" || (mkdir "${HOME}/.config" && mkdir "${HOME}/.config/npm") ||true
+	npm config set prefix "${HOME}/.config/npm"
 	elif [ $arch = 'true' ]
 	then
 	sudo pacman -S nodejs npm --noconfirm
@@ -84,9 +78,6 @@ instal_docker(){
 	elif [ $arch = 'true' ]
 	then
 	sudo pacman -S docker docker-compose --noconfirm
-	elif [ $rpi = 'true' ]
-	then
-	curl -fsSL get.docker.com -o get-docker.sh && sh get-docker.sh
 	fi
 
 	#adding user to docker
@@ -95,7 +86,7 @@ instal_docker(){
 
 install_python(){
 	printf '====Installing python ====\n'
-    	if [ $debian = 'true' ] || [ $rpi = 'true' ]
+    	if [ $debian = 'true' ]
 	then
     	sudo apt-get install python3 python3-pip python-pygments -y
 	elif [ $arch = 'true' ]
@@ -165,41 +156,10 @@ chown $username /home/$username/.zshrc
 
 }
 
-adding_alias(){
-    	echo "alias supdate='sudo apt-get update && sudo apt-get upgrade -y'" >> /home/$username/.zshrc
-}
-
 change_hostname(){
     	sudo rm /etc/hostname
     	sudo touch /etc/hostname
     	echo $hostname | sudo tee -a /etc/hostname
-}
-
-setup_samba(){
-	printf '====Setting up SAMBA (WIP) ====\n'
-	if [ $debian = 'true' ] || [ $rpi = 'true' ]
-	then
-    	sudo apt-get install samba ufw -y
-	read -p 'which directory?  ' directory
-	read -p 'which sharename?  ' sharename
-	
-cat << EOT >> sudo tee -a /etc/samba/smb.conf
-[$sharename]
-comment = Samba on Ubuntu
-path = $directory
-read only = no
-browsable = yes
-EOT
-	
-	sudo service smbd restart
-	sudo ufw allow samba
-	sudo smbpasswd -a $username
-	
-	elif [ $arch = 'true' ]
-	then
-	printf '==== SAMBA setup on Arch not implemented ====\n'
-	fi
-	
 }
 
 setup_composer(){
@@ -226,7 +186,6 @@ start_install(){
 	if [ "${result[2]}" = true ]; then install_rmate; fi;
 	if [ "${result[3]}" = true ]; then install_python; fi;
 	if [ "${result[4]}" = true ]; then instal_docker; fi;
-	if [ "${result[5]}" = true ]; then setup_samba; fi;
 	if [ "${result[6]}" = true ]
 	then
 		read -p 'which hostname?  ' hostname
@@ -333,7 +292,7 @@ function multiselect {
 }
 
 #asking which packages
-multiselect result "oh-my-zsh;node;rmate;python;docker;samba;change hostname;composer" "true;true;;true;;;;;"
+multiselect result "oh-my-zsh;node;rmate;python;docker;change hostname;composer" "true;true;;true;;;;;"
 
 
 #create user?
@@ -361,26 +320,16 @@ done
 
 #asking which kind of system
 PS3='Please enter your choice: '
-options=("rpi" "debian" "arch" "Quit")
+options=("debian" "arch" "Quit")
 select opt in "${options[@]}"
 do
 	case $opt in
-        "rpi")
-		  printf '==== RPI ====\n'
-		  rpi='true'
-		  update_pi
-		  general_packages
-		  start_install
-		  adding_alias
-          break
-          ;;
         "debian")
 		  printf '==== DEBIAN ====\n'
 		  debian='true'
 		  update_deb
 		  general_packages
 		  start_install
-		  adding_alias
           break
           ;;
         "arch")
