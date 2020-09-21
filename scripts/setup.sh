@@ -163,6 +163,19 @@ change_hostname(){
     	echo $hostname | sudo tee -a /etc/hostname
 }
 
+install_kubectl(){
+
+	kubectl version || curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+	kubectl version || sudo chmod +x ./kubectl
+	kubectl version || sudo mv ./kubectl /usr/local/bin/kubectl
+
+	#install brew
+	brew --version || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+
+	kubectx -h || brew install kubectx
+	thefuck --version ||brew install thefuck
+}
+
 setup_composer(){
   printf '====Setting up PHP & Composer ====\n'
   if [ $debian = 'true' ] || [ $rpi = 'true' ]
@@ -187,12 +200,8 @@ start_install(){
 	if [ "${result[2]}" = true ]; then install_rmate; fi;
 	if [ "${result[3]}" = true ]; then install_python; fi;
 	if [ "${result[4]}" = true ]; then instal_docker; fi;
-	if [ "${result[6]}" = true ]
-	then
-		read -p 'which hostname?  ' hostname
-		change_hostname
-	fi
-  if [ "${result[7]}" = true ]; then setup_composer; fi;
+	if [ "${result[5]}" = true ]; then setup_composer; fi;
+  	if [ "${result[6]}" = true ]; then install_kubectl; fi;
 	
 }
 
@@ -293,7 +302,7 @@ function multiselect {
 }
 
 #asking which packages
-multiselect result "oh-my-zsh;node;rmate;python;docker;change hostname;composer" "true;true;;true;;;;;"
+multiselect result "oh-my-zsh;node;rmate;python;docker;composer;kubectl" "true;true;;true;;;;;"
 
 
 #create user?
