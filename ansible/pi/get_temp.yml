@@ -1,0 +1,8 @@
+---
+- hosts: pi
+  remote_user: pi
+  tasks:
+    - name: get temperature
+      command: "vcgencmd measure_temp"
+      register: out
+    - debug: var=out.stdout

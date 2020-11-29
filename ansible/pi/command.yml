@@ -1,0 +1,8 @@
+---
+- hosts: pi
+  remote_user: pi
+  tasks:
+    - name: run a specifief command
+      command: "{{ command }}"  
+      register: out
+    - debug: var=out

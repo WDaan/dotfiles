@@ -1,0 +1,14 @@
+---
+- hosts: "{{ target }}"
+  remote_user: pi
+  tasks:
+    - name: update and upgrade apt packages
+      become: true #use sudo
+      apt: 
+          upgrade: yes
+          update_cache: yes
+          cache_valid_time: 86400 #1 day
+
+# run with
+# ansible-playbook update_target.yml -e "{target: 10.0.0.2}" -i 10.0.0.2,
+

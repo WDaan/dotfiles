@@ -1,0 +1,25 @@
+---
+- hosts: pi
+  remote_user: pi
+  gather_facts: no
+  vars:
+    verbose: false
+  tasks:
+    - name: Update packages
+      become: true
+      apt:
+        update_cache: true
+        upgrade: dist
+        autoremove: yes
+      register: output
+
+    - name: Check changes
+      set_fact:
+        updated: true
+      when: output.stdout is search("0 upgraded, 0 newly installed")
+
+    - name: Display changes
+      debug:
+        msg: "{{ output.stdout_lines }}"
+      when: verbose or updated is defined
+
