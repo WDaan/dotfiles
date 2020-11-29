@@ -50,7 +50,7 @@ install_node(){
 	printf '====Installing node ====\n'
 	if [ $debian = 'true' ]
 	then
-    	curl -sL https://deb.nodesource.com/setup_12.x | sudo bash -
+    	curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
     	sudo apt install -y nodejs
     	# seperate because npm needs nodejs before it can install
     	sudo apt install  npm -y
