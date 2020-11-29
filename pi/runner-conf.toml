@@ -7,7 +7,7 @@ check_interval = 0
 [[runners]]
   name = "RPI 4 runner"
   url = "https://gitlab.com/"
-  token = "zcsfd89tbtyTMvYiWiL4"
+  token = "token"
   executor = "docker"
   [runners.custom_build_dir]
   [runners.cache]
