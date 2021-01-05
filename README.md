@@ -9,7 +9,7 @@ wget https://raw.githubusercontent.com/WDaan/dotfiles/master/scripts/setup.sh
 ```  
 can install/setup:
 - update system
-- zsh
+- zsh with oh-my-zsh + auto-suggest & syntax highlighting plugin
 - node
 - php/composer
 - python3
