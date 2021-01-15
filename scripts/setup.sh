@@ -66,13 +66,6 @@ install_python() {
   fi
 }
 
-download_zshrc() {
-  #download .zshrc from github
-  wget https://raw.githubusercontent.com/WDaan/dotfiles/master/.zshrc -O /home/$username/.zshrc
-  sed -i "s/YOUR_USERNAME/$username/g" /home/$username/.zshrc
-  chown $username /home/$username/.zshrc
-}
-
 configure_zsh() {
   if which zsh >/dev/null; then
     echo -e "\033[32m✔ Zsh is installed\e[0m"
@@ -91,29 +84,29 @@ configure_zsh() {
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-/home/$username/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
   fi
 
-  if [ -f /home/$username/.zshrc ]; then
-    #restore .zshrc
-    echo -e "\033[36mrestore .zshrc?\e[0m"
-    PS3='Please enter your choice: '
-    options=("Yes" "No")
-    select opt in "${options[@]}"; do
-      case $opt in
-      "Yes")
-        rm /home/$username/.zshrc
-        cd ~
-        download_zshrc
-        echo -e "\033[36m✔ Restored .zshrc to default\e[0m"
-        break
-        ;;
-      *)
-        echo -e "\033[36mOK than...\e[0m"
-        break
-        ;;
-      esac
-    done
-  else
-    download_zshrc
-  fi
+  #restore .zshrc
+  echo -e "\033[36mrestore .zshrc?\e[0m"
+  PS3='Please enter your choice: '
+  options=("Yes" "No")
+  select opt in "${options[@]}"; do
+    case $opt in
+    "Yes")
+      rm /home/$username/.zshrc
+      cd ~
+      #download .zshrc from github
+      wget https://raw.githubusercontent.com/WDaan/dotfiles/master/.zshrc -O /home/$username/.zshrc
+      sed -i "s/YOUR_USERNAME/$username/g" /home/$username/.zshrc
+      chown $username /home/$username/.zshrc
+      echo -e "\033[36m✔ Restored .zshrc to default\e[0m"
+      break
+      ;;
+    *)
+      echo -e "\033[36mOK than...\e[0m"
+      break
+      ;;
+    esac
+  done
+
 }
 
 install_kubectl() {

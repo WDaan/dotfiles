@@ -1,4 +1,4 @@
-export ZSH="/home/pi/.oh-my-zsh"
+export ZSH="/home/YOUR_USERNAME/.oh-my-zsh"
 
 ZSH_THEME="agnoster"
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=5'
