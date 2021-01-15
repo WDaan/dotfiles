@@ -63,6 +63,7 @@ install_python() {
     echo -e "\033[31m❌ Python3 missing\e[0m"
     echo -e "\033[36mInstalling now...\e[0m"
     sudo apt-get install python3 python3-pip -y
+    sudo pip3 install pygments
   fi
 }
 
