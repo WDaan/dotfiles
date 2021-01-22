@@ -13,7 +13,7 @@ update() {
 
 general_packages() {
   echo -e "\033[36mInstalling general packages...\e[0m"
-  sudo apt-get install git curl tree trash-cli neofetch unzip -y
+  sudo apt-get install git curl tree trash-cli neofetch unzip htop -y
   wget https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh -O- | sh
 }
 
@@ -57,7 +57,7 @@ instal_docker() {
 }
 
 install_python() {
-  if which python3 >/dev/null; then
+  if which python3 >/dev/null && which pip3 >/dev/null; then
     echo -e "\033[32m✔ Python3 is installed\e[0m"
   else
     echo -e "\033[31m❌ Python3 missing\e[0m"
