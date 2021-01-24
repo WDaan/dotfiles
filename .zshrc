@@ -27,6 +27,8 @@ export PATH="$PATH:/home/linuxbrew/.linuxbrew/bin"
 export PATH="$PATH:$HOME/.config/npm/bin"
 export PATH="$PATH:$HOME/.config/composer/vendor/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
+export GOPATH="$HOME/.go"
+export PATH="$PATH:$GOPATH/bin"
 
 ################### C/C++ compile functions ###########################
 gcc_comp() {
