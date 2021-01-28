@@ -14,7 +14,7 @@ plugins=(
 source ~/.oh-my-zsh/oh-my-zsh.sh
 
 alias plz='sudo $(fc -ln -1)'
-alias cat='pygmentize -g'
+alias cat='batcat'
 alias usage='du -h -d1'
 alias supdate='sudo apt-get update && sudo apt-get upgrade -y'
 alias kc='kubectl'

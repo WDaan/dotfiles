@@ -13,8 +13,7 @@ update() {
 
 general_packages() {
   echo -e "\033[36mInstalling general packages...\e[0m"
-  sudo apt-get install git curl tree trash-cli neofetch unzip htop -y
-  wget https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh -O- | sh
+  sudo apt-get install git curl tree trash-cli neofetch unzip htop bat fd-find -y
 }
 
 install_node() {
@@ -57,13 +56,12 @@ instal_docker() {
 }
 
 install_python() {
-  if which python3 >/dev/null && which pip3 >/dev/null; then
+  if which python3 >/dev/null; then
     echo -e "\033[32m✔ Python3 is installed\e[0m"
   else
     echo -e "\033[31m❌ Python3 missing\e[0m"
     echo -e "\033[36mInstalling now...\e[0m"
     sudo apt-get install python3 python3-pip -y
-    sudo pip3 install pygments
   fi
 }
 
