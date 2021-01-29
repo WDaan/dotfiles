@@ -13,7 +13,7 @@ update() {
 
 general_packages() {
   echo -e "\033[36mInstalling general packages...\e[0m"
-  sudo apt-get install git curl tree trash-cli neofetch unzip htop bat fd-find -y
+  sudo apt-get install git curl tree trash-cli neofetch unzip htop bat fd-find fzf -y
 }
 
 install_node() {
