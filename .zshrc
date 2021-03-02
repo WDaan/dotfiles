@@ -29,6 +29,7 @@ export PATH="$PATH:$HOME/.config/composer/vendor/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
 export GOPATH="$HOME/.go"
 export PATH="$PATH:$GOPATH/bin"
+export PATH="$HOME/.symfony/bin:$PATH"
 
 ################### C/C++ compile functions ###########################
 gcc_comp() {
