@@ -24,11 +24,8 @@ install_node() {
     echo -e "\033[36mInstalling now...\e[0m"
     curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
     sudo apt install -y nodejs
-    # seperate because npm needs nodejs before it can install
-    sudo apt install npm -y
-
-    mkdir "${HOME}/.config/npm" || (mkdir "${HOME}/.config" && mkdir "${HOME}/.config/npm") || true
-    npm config set prefix "${HOME}/.config/npm"
+    
+    npm config set prefix "${HOME}/.npm"
   fi
 }
 

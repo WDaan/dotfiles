@@ -28,8 +28,7 @@ export KUBE_EDITOR='nano'
 
 ###################### PATH ################################
 export PATH="$PATH:/home/linuxbrew/.linuxbrew/bin"
-export PATH="$PATH:$HOME/.config/npm/bin"
-export PATH="$PATH:$HOME/.config/composer/vendor/bin"
+export PATH="$PATH:$HOME/.npm/bin"
+export PATH="$PATH:$HOME/.composer/vendor/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:$HOME/go/bin"
-export PATH="$HOME/.symfony/bin:$PATH"
