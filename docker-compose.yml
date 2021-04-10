@@ -50,3 +50,42 @@ services:
       - mysql
     links:
       - mysql
+
+  # ouroboros:
+  #   container_name: ouroboros
+  #   hostname: ouroboros
+  #   image: pyouroboros/ouroboros
+  #   environment:
+  #     - CLEANUP=true
+  #     - INTERVAL=86400 #24 hours
+  #     - LOG_LEVEL=info
+  #     - SELF_UPDATE=true
+  #     - IGNORE="nginx proxy"
+  #     - TZ=Europe/Brussels
+  #   restart: unless-stopped
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+
+  # proxy:
+  #   image: jc21/nginx-proxy-manager:latest
+  #   container_name: proxy
+  #   restart: always
+  #   ports:
+  #     - '80:80'
+  #     - '81:81'
+  #     - '443:443'
+  #   volumes:
+  #     - /home/pi/Documents/Docker/Containers/proxy/config.json:/app/config/production.json
+  #     - /home/pi/Documents/Docker/Containers/proxy/data:/data
+  #     - /home/pi/Documents/Docker/Containers/proxy/letsencrypt:/etc/letsencrypt
+  #   environment:
+  #     DISABLE_IPV6: 'true'
+
+  # portainer:
+  #   image: portainer/portainer-ce
+  #   container_name: portainer
+  #   command: -H unix:///var/run/docker.sock
+  #   restart: always
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #     - /home/pi/Documents/Docker/Containers/portainer:/data
