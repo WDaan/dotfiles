@@ -9,6 +9,7 @@ plugins=(
   zsh-autosuggestions
   z
   npm
+  kubectl
 )
 
 source ~/.oh-my-zsh/oh-my-zsh.sh
@@ -18,6 +19,7 @@ alias plz='sudo $(fc -ln -1)'
 alias usage='du -h -d1'
 alias kc='kubectl'
 alias e='docker-compose exec'
+alias dc='docker-compose'
 alias gc='git remote update origin --prune ; git --no-pager  branch -vv | awk '\''/: gone]/{print $1}'\'' |  xargs git branch -D'
 
 ##################### VARIABLES ############################
@@ -27,7 +29,7 @@ export LC_ALL=en_US.UTF-8
 export PATH="/opt/local/bin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
 export PATH="/usr/local/go/bin:$PATH"
-
+export PATH="/Users/daanwijns/go/bin:$PATH"
 ###################### FUNCTIONS ###########################
 function ip() {
     docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "$1"
