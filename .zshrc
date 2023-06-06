@@ -24,6 +24,7 @@ alias gc='git remote update origin --prune ; git --no-pager  branch -vv | awk '\
 alias tf='terraform'
 alias yl='yamllint'
 alias yf='yamlfixer'
+alias awsp='export AWS_PROFILE=$(sed -n "s/\[profile \(.*\)\]/\1/gp" ~/.aws/config | fzf)'
 ##################### VARIABLES ############################
 export LC_ALL=en_US.UTF-8
 
@@ -33,6 +34,9 @@ export PATH="/opt/homebrew/bin:$PATH"
 export PATH="/usr/local/go/bin:$PATH"
 export PATH="/Users/daanwijns/go/bin:$PATH"
 export PATH="/usr/local/anaconda3/bin:$PATH"
+export PATH="${PATH}:${HOME}/.krew/bin"
+export PATH="${PATH}:${HOME}/Users/daanwijns/Library/pnpm"
+export PATH="/opt/homebrew/Caskroom/miniconda/base/bin:$PATH"
 
 ###################### FUNCTIONS ###########################
 function ip() {
@@ -43,6 +47,10 @@ function shell() {
     docker exec -u root -it $(docker ps -q | head -n 1) sh
 }
 
+function gho () {
+ LINK=$(basename $(pwd))
+ open https://github.com/accelins/$LINK
+}
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -51,4 +59,5 @@ export NVM_DIR="$HOME/.nvm"
 
 eval $(thefuck --alias)
 eval "$(starship init zsh)"
+
 
